@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>559</width>
-    <height>507</height>
+    <width>441</width>
+    <height>519</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="btnOK">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>460</y>
+     <x>0</x>
+     <y>470</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -29,24 +29,11 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnLoadfromRepo">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>340</y>
-     <width>131</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Load repo layers</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btnLayertoRepo">
    <property name="geometry">
     <rect>
      <x>190</x>
-     <y>370</y>
+     <y>430</y>
      <width>98</width>
      <height>27</height>
     </rect>
@@ -59,7 +46,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>30</y>
+     <y>90</y>
      <width>321</width>
      <height>291</height>
     </rect>
@@ -72,13 +59,62 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>340</y>
+     <y>400</y>
      <width>141</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
     <string>List Map Layers</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnLoadfromRepo">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>400</y>
+     <width>131</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Load repo layers</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnDir">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>50</y>
+     <width>151</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Repo Directory</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtCurrentRepo">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>20</y>
+     <width>241</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblCurrentRepo">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Repository:</string>
    </property>
   </widget>
  </widget>

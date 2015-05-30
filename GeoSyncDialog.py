@@ -30,13 +30,19 @@ class GeoSyncDialog(QtGui.QDialog):
         self.ui.btnGetMapLayers.clicked.connect(self.populate_list_widget)
         self.ui.btnLayertoRepo.clicked.connect(self.add_layer_to_repo)
         self.ui.btnLoadfromRepo.clicked.connect(self.populate_map)
+        self.ui.btnDir.clicked.connect(self.set_repo_dir)
+
+        # Add progress bar
 
 
     def populate_list_widget(self):
         layers = get_map_layers()
         for layer in layers:
             self.ui.listMapLayers.addItem(layer)
-        file = str(QFileDialog.getExistingDirectory(None, "Select a directory"))
+
+    def set_repo_dir(self):
+        self.current_repo = str(QFileDialog.getExistingDirectory(None, "Select a directory"))
+        self.ui.txtCurrentRepo.setText(self.current_repo)
         print file
 
     def populate_map(self):
