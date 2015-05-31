@@ -65,8 +65,10 @@ def all_legend_layers():
     return list_layers
 
 
-def get_map_layers():
+def get_map_layers():#list type is wrong
     layer_list = []
-    for layer in QgsMapLayerRegistry.instance().mapLayers():
-        layer_list.append(layer)
+    legend = iface.legendInterface()
+    layers = legend.layers()
+    for layer in layers:
+        layer_list.append(layer.name())
     return layer_list

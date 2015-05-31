@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_GeoSync.ui'
 #
-# Created: Sun May 31 00:20:17 2015
+# Created: Sun May 31 14:59:29 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,6 +27,9 @@ class Ui_GeoSync(object):
     def setupUi(self, GeoSync):
         GeoSync.setObjectName(_fromUtf8("GeoSync"))
         GeoSync.resize(441, 519)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        GeoSync.setWindowIcon(icon)
         self.btnOK = QtGui.QDialogButtonBox(GeoSync)
         self.btnOK.setGeometry(QtCore.QRect(0, 470, 341, 32))
         self.btnOK.setOrientation(QtCore.Qt.Horizontal)

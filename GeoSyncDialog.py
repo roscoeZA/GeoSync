@@ -46,12 +46,14 @@ class GeoSyncDialog(QtGui.QDialog):
         print file
 
     def populate_map(self):
-        repos = connect2repo('/tmp/a/')
-        export_to_geojson(repos, '/tmp/a/')
-        all_geojson_to_memory('/tmp/a/')
+
+        repos = connect2repo(self.current_repo)
+        export_to_geojson(repos, self.current_repo)
+        all_geojson_to_memory(self.current_repo)
 
     def add_layer_to_repo(self):
         print 'Save memory, then import, then add and commit'
         selected_layers = self.ui.listMapLayers.selectedItems()
         for layer in selected_layers:
-            print layer.name()
+            count = self.ui.listMapLayers.row(layer)
+            print "Name: %s Index: %s" % (layer.text(), count)
