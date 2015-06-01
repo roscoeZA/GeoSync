@@ -18,6 +18,8 @@ email                : roscoelawrence@gmail.com
 """
 from PyQt4 import QtCore, QtGui
 from PySide.QtGui import QFileDialog
+from qgis.core import QgsVectorFileWriter
+from qgis.core import QgsCoordinateReferenceSystem
 from Ui_GeoSync import Ui_GeoSync
 from Controller import *
 
@@ -36,24 +38,44 @@ class GeoSyncDialog(QtGui.QDialog):
 
 
     def populate_list_widget(self):
-        layers = get_map_layers()
-        for layer in layers:
-            self.ui.listMapLayers.addItem(layer)
+        self.ui.listMapLayers.clear()
+        self.legend_layers = get_map_layers()
+        for layer in self.legend_layers:
+            self.ui.listMapLayers.addItem(layer.name())
 
     def set_repo_dir(self):
-        self.current_repo = str(QFileDialog.getExistingDirectory(None, "Select a directory"))
-        self.ui.txtCurrentRepo.setText(self.current_repo)
-        print file
+        self.current_repo_dir = str(QFileDialog.getExistingDirectory(None, "Select a directory"))
+        self.ui.txtCurrentRepo.setText(self.current_repo_dir)
 
     def populate_map(self):
-
-        repos = connect2repo(self.current_repo)
-        export_to_geojson(repos, self.current_repo)
-        all_geojson_to_memory(self.current_repo)
+        self.repos = connect2repo(self.current_repo_dir)
+        export_to_geojson(self.repos, self.current_repo_dir)
+        all_geojson_to_memory(self.current_repo_dir)
 
     def add_layer_to_repo(self):
+        self.repos = connect2repo(self.current_repo_dir)
         print 'Save memory, then import, then add and commit'
         selected_layers = self.ui.listMapLayers.selectedItems()
+        crsSrc = QgsCoordinateReferenceSystem(3857)
         for layer in selected_layers:
+            name=list(layer.text())
+            fixed_name=""
+            for i in range(0, len(name)):
+                if name[i] == ' ':
+                    fixed_name += "_"
+                elif name[i] != " ":
+                    fixed_name += name[i]
+
             count = self.ui.listMapLayers.row(layer)
-            print "Name: %s Index: %s" % (layer.text(), count)
+            print self.legend_layers[count]
+        # geogig import has issues with 'crs:OGC:1.3:CRS84' in the geojson file. CRS 3857, seems to work though
+            writer = QgsVectorFileWriter.writeAsVectorFormat(self.legend_layers[count],
+                                                             os.path.join(self.current_repo_dir,
+                                                                          str(fixed_name) + '.geojson'),
+                                                             "utf-8",
+                                                             crsSrc,
+                                                             "GeoJSON")
+        self.repos = connect2repo(self.current_repo_dir)
+        import_all_geojosn(self.repos, self.current_repo_dir)
+        add_commit(self.repos)
+

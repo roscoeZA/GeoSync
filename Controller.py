@@ -1,5 +1,7 @@
 from qgis.utils import iface
 from qgis.core import QgsMapLayerRegistry
+from datetime import datetime
+from geogigpy import geogig
 from geogigpy.repo import Repository
 from geogigpy.geogigexception import GeoGigException
 import os
@@ -26,7 +28,6 @@ def export_to_geojson(repos, filepath):
     # export files to geojson
     for t in repos.trees:
         if t.path not in ("layer_statistics", "views_layer_statistics", "virts_layer_statistics"):
-
             geojson_path=os.path.join(filepath, t.path + '.geojson')
             try:
                 repos.exportgeojson('HEAD', t.path, os.path.join('HEAD', t.path,
@@ -35,6 +36,17 @@ def export_to_geojson(repos, filepath):
                 'Error in exporting: %s' % e
                 continue
     # all_geojson_to_memory('/tmp/b')
+
+def import_all_geojosn(repos, dirpath):
+    for f in os.listdir(dirpath):
+        if f.endswith(".geojson"):
+            geojson_path = os.path.join(dirpath, f)
+            try:
+                # geojsonfile, add = False, dest = None, idAttribute = None, geomName = None, force=False
+                repos.importgeojson(geojson_path, dest=os.path.splitext(f)[0], force=True)
+            except GeoGigException, e:
+                print e
+                continue
 
 
 def all_geojson_to_memory(dirpath):
@@ -49,6 +61,11 @@ def all_geojson_to_memory(dirpath):
 def delete_file(filepath):
     print "F: " + filepath
     os.remove(filepath)
+
+def add_commit(repos, message='', name='test_user', email='test@user.com'):
+        message += " " + str(datetime.now())
+        repos.config(geogig.USER_NAME, name)
+        repos.config(geogig.USER_EMAIL, email)
 
 
 def save_geojson_changes(filepath):
@@ -70,5 +87,6 @@ def get_map_layers():#list type is wrong
     legend = iface.legendInterface()
     layers = legend.layers()
     for layer in layers:
-        layer_list.append(layer.name())
+        # layer_list.append(layer.name())
+        layer_list.append(layer)
     return layer_list
