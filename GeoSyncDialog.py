@@ -50,9 +50,12 @@ class GeoSyncDialog(QtGui.QDialog):
     def populate_map(self):
         self.repos = connect2repo(self.current_repo_dir)
         export_to_geojson(self.repos, self.current_repo_dir)
+        print self.current_repo_dir
         all_geojson_to_memory(self.current_repo_dir)
+        delete_files(self.current_repo_dir)
 
     def add_layer_to_repo(self):
+        # shift aloat of this functionality into the Controller module.
         self.repos = connect2repo(self.current_repo_dir)
         print 'Save memory, then import, then add and commit'
         selected_layers = self.ui.listMapLayers.selectedItems()
@@ -75,7 +78,7 @@ class GeoSyncDialog(QtGui.QDialog):
                                                              "utf-8",
                                                              crsSrc,
                                                              "GeoJSON")
-        self.repos = connect2repo(self.current_repo_dir)
         import_all_geojosn(self.repos, self.current_repo_dir)
         add_commit(self.repos)
+        delete_files(self.current_repo_dir)
 

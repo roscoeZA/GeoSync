@@ -23,7 +23,6 @@ def geojson_to_memory(path, name):
 
     # for i,j in my_WkbType.items():
     #     #print i + " : " + str(j)
-
     my_rev_WkbType = {v: k for k, v in my_WkbType.items()}
     # for i,j in my_WkbType.items():
     #     #print i + " : " + str(j)
