@@ -28,7 +28,7 @@ class MyCustomWidget(QtGui.QWidget):
 
         # Create a progress bar and a button and add them to the main layout
         self.progressBar = QtGui.QProgressBar(self)
-        self.progressBar.setRange(0,1)
+        self.progressBar.setRange(0, 1)
         layout.addWidget(self.progressBar)
         button = QtGui.QPushButton("Start", self)
         layout.addWidget(button)
@@ -39,12 +39,12 @@ class MyCustomWidget(QtGui.QWidget):
         self.myLongTask.taskFinished.connect(self.onFinished)
 
     def onStart(self):
-        self.progressBar.setRange(0,0)
+        self.progressBar.setRange(0, 0)
         self.myLongTask.start()
 
     def onFinished(self):
         # Stop the pulsation
-        self.progressBar.setRange(0,1)
+        self.progressBar.setRange(0, 1)
         self.progressBar.setValue(1)
 
 

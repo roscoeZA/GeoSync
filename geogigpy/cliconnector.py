@@ -189,7 +189,7 @@ class CLIConnector(Connector):
             if len(tokens) != 3:
                 continue
             if tokens[0] not in remotes:
-                remotes[tokens[0]] =  tokens[1]                
+                remotes[tokens[0]] =  tokens[1]
         return remotes        
         
     def log(self, tip, sincecommit = None, until = None, since = None, path = None, n = None):

@@ -6,6 +6,7 @@ from geogigpy.repo import Repository
 from geogigpy.geogigexception import GeoGigException
 import os
 import file_to_memory
+from CommitDialog import CommitDialog
 
 def connect2repo(path, remote='localhost', repo_type='local'):
     print 'connect 2 repo %s' % path
@@ -24,7 +25,6 @@ def connect2repo(path, remote='localhost', repo_type='local'):
 
 
 def export_to_geojson(repos, filepath):
-    # export files to geojson
     for t in repos.trees:
         print "t: %s" % t.path
         if t.path not in ("layer_statistics", "views_layer_statistics", "virts_layer_statistics"):
@@ -65,12 +65,12 @@ def delete_files(dirpath):
             os.remove(os.path.join(dirpath,f))
 
 
-
-def add_commit(repos, message='', name='test_user', email='test@user.com'):
-        message += " " + str(datetime.now())
-        repos.config(geogig.USER_NAME, name)
-        repos.config(geogig.USER_EMAIL, email)
-        repos.addandcommit(message)
+def add_commit(repos, name, email, message):
+    name, email, message = ["","",""]
+    message += " " + str(datetime.now())
+    repos.config(geogig.USER_NAME, name)
+    repos.config(geogig.USER_EMAIL, email)
+    repos.addandcommit(message)
 
 
 def save_geojson_changes(filepath):

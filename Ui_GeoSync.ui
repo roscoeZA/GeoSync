@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>441</width>
-    <height>519</height>
+    <width>365</width>
+    <height>612</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,8 +20,8 @@
   <widget class="QDialogButtonBox" name="btnOK">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>470</y>
+     <x>-10</x>
+     <y>560</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -36,8 +36,8 @@
   <widget class="QPushButton" name="btnLayertoRepo">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>430</y>
+     <x>230</x>
+     <y>520</y>
      <width>98</width>
      <height>27</height>
     </rect>
@@ -50,7 +50,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>90</y>
+     <y>130</y>
      <width>321</width>
      <height>291</height>
     </rect>
@@ -62,40 +62,40 @@
   <widget class="QPushButton" name="btnGetMapLayers">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>400</y>
-     <width>141</width>
+     <x>20</x>
+     <y>490</y>
+     <width>311</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>List Map Layers</string>
+    <string>Get layers from map</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btnLoadfromRepo">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>400</y>
-     <width>131</width>
+     <y>460</y>
+     <width>311</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Load repo layers</string>
+    <string>Load layers from repository</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btnDir">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>80</x>
      <y>50</y>
-     <width>151</width>
+     <width>261</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Select Repo Directory</string>
+    <string>Select repository directory</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="txtCurrentRepo">
@@ -119,6 +119,45 @@
    </property>
    <property name="text">
     <string>Repository:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblMapLayers">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>241</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Layers to add to repository:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnRemotes">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>80</y>
+     <width>98</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Remotes</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnLog">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>520</y>
+     <width>98</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Log</string>
    </property>
   </widget>
  </widget>

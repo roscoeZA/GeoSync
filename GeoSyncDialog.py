@@ -17,11 +17,16 @@ email                : roscoelawrence@gmail.com
  ***************************************************************************/
 """
 from PyQt4 import QtCore, QtGui
-from PySide.QtGui import QFileDialog
+from PyQt4.QtCore import QRect
+from PySide.QtGui import QFileDialog, QDialog, QApplication
 from qgis.core import QgsVectorFileWriter
 from qgis.core import QgsCoordinateReferenceSystem
+import sys
 from Ui_GeoSync import Ui_GeoSync
 from Controller import *
+from CommitDialog import CommitDialog
+from RemotesDialog import RemotesDialog
+from LogDialog import LogDialog
 
 class GeoSyncDialog(QtGui.QDialog):
     def __init__(self):
@@ -33,6 +38,8 @@ class GeoSyncDialog(QtGui.QDialog):
         self.ui.btnLayertoRepo.clicked.connect(self.add_layer_to_repo)
         self.ui.btnLoadfromRepo.clicked.connect(self.populate_map)
         self.ui.btnDir.clicked.connect(self.set_repo_dir)
+        self.ui.btnRemotes.clicked.connect(self.show_remote_dialog)
+        self.ui.btnLog.clicked.connect(self.show_log_dialg  )
 
         # Add progress bar
 
@@ -46,6 +53,7 @@ class GeoSyncDialog(QtGui.QDialog):
     def set_repo_dir(self):
         self.current_repo_dir = str(QFileDialog.getExistingDirectory(None, "Select a directory"))
         self.ui.txtCurrentRepo.setText(self.current_repo_dir)
+        self.repos = connect2repo(self.current_repo_dir)
 
     def populate_map(self):
         self.repos = connect2repo(self.current_repo_dir)
@@ -53,6 +61,7 @@ class GeoSyncDialog(QtGui.QDialog):
         print self.current_repo_dir
         all_geojson_to_memory(self.current_repo_dir)
         delete_files(self.current_repo_dir)
+
 
     def add_layer_to_repo(self):
         # shift aloat of this functionality into the Controller module.
@@ -79,6 +88,25 @@ class GeoSyncDialog(QtGui.QDialog):
                                                              crsSrc,
                                                              "GeoJSON")
         import_all_geojosn(self.repos, self.current_repo_dir)
-        add_commit(self.repos)
+        name, email, message = self.show_commit_dialog()
+        print message
+        add_commit(self.repos, name, email, message)
+        # should probably add all files to memory here
         delete_files(self.current_repo_dir)
 
+    def show_commit_dialog(self):
+        dlg = CommitDialog()
+        dlg.show()
+        dlg.exec_()
+        name, email, message = dlg.get_values()
+        return name, email, message
+
+    def show_remote_dialog(self):
+        dlg = RemotesDialog(self.repos)
+        dlg.show()
+        dlg.exec_()
+
+    def show_log_dialg(self):
+        dlg=LogDialog(self.repos)
+        dlg.show()
+        dlg.exec_()
