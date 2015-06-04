@@ -29,7 +29,6 @@ from Controller import connect2repo
 from Controller import export_to_geojson
 from Ui_GeoSync import Ui_GeoSync
 from SavedRepos import SavedRepos
-import pydevd
 
 # Initialize Qt resources from file resources.py
 
@@ -80,7 +79,6 @@ class GeoSync:
     # create and show the dialog
 
         dlg = GeoSyncDialog()
-        pydevd.settrace('localhost', port=58100, stdoutToServer=True, stderrToServer=True)
         saved_repos = SavedRepos().get_fields()
         for index in range(len(saved_repos)):
             dlg.ui.txtCurrentRepo.addItem(saved_repos[index])

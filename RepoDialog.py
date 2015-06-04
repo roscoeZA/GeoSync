@@ -50,8 +50,15 @@ class RepoDialog(QDialog):
     def delete_repo(self):
         index = self.lstRepos.row(self.lstRepos.currentItem())
         self.repos_config.delete(index)
+        self.reload_repos()
 
     def add_repo(self):
         self.current_repo_dir = str(QFileDialog.getExistingDirectory(None, "Select a directory"))
-        print self.current_repo_dir
         self.repos_config.set_fields(self.current_repo_dir)
+        self.reload_repos()
+
+    def reload_repos(self):
+        self.lstRepos.clear()
+        for repo in self.repos_config.get_fields():
+            self.lstRepos.addItem(repo)
+

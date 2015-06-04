@@ -28,6 +28,7 @@ from CommitDialog import CommitDialog
 from RemotesDialog import RemotesDialog
 from LogDialog import LogDialog
 from RepoDialog import RepoDialog
+from SavedRepos import SavedRepos
 
 class GeoSyncDialog(QtGui.QDialog):
     def __init__(self):
@@ -58,7 +59,12 @@ class GeoSyncDialog(QtGui.QDialog):
         print self.ui.txtCurrentRepo.currentText()
         self.current_repo_dir = self.ui.txtCurrentRepo.currentText()#str(QFileDialog.getExistingDirectory(None, "Select a directory"))
         # self.ui.txtCurrentRepo.setText(self.current_repo_dir)
-        self.repos = connect2repo(self.current_repo_dir)
+        try:
+            self.repos = connect2repo(self.current_repo_dir)
+            print 'Error check: ' +  self.current_repo_dir
+        except Exception:
+            print 'error'
+
 
     def populate_map(self):
         self.repos = connect2repo(self.current_repo_dir)
@@ -116,6 +122,12 @@ class GeoSyncDialog(QtGui.QDialog):
         dlg = RepoDialog()
         dlg.show()
         dlg.exec_()
+        self.ui.txtCurrentRepo.clear()
+        repos_config = SavedRepos()
+        saved_repos = repos_config.get_fields()
+        for repo in saved_repos:
+            self.ui.txtCurrentRepo.addItem(repo)
+
 
     def test(self):
         print 'test'

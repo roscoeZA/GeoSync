@@ -1,6 +1,5 @@
 import os
 import csv
-import pydevd
 
 class SavedRepos(object):
     def __init__(self):
@@ -26,12 +25,13 @@ class SavedRepos(object):
         # self.repo_dict.append(new_repo)
         # self.repo_dict.update({new_repo: new_dir})
         #self.repo_dict[new_repo] = [new_dir]
-        print dir
-        self.saved_repos_list.append(dir)
-        with open(self.fname, 'w+b') as csvfile:
-            writer = csv.writer(csvfile, delimiter = ",")
-            for item in self.saved_repos_list:
-                writer.writerow([item])
+        if dir != "":
+            self.saved_repos_list.append(dir)
+            with open(self.fname, 'w+b') as csvfile:
+                writer = csv.writer(csvfile, delimiter = ",")
+                for item in self.saved_repos_list:
+                    writer.writerow([item])
+
 
     def delete(self, index):
         self.saved_repos_list.pop(index)

@@ -10,17 +10,28 @@ import file_to_memory
 from CommitDialog import CommitDialog
 
 def connect2repo(path, remote='localhost', repo_type='local'):
+
     print 'connect 2 repo %s' % path
     if os.path.isdir(os.path.join(path, '.geogig')):
         print "Set to existing repo"
-        repos = Repository(path)
+        try:
+            repos = Repository(path)
+        except GeoGigException, e:
+            print e
+
         return repos
     else:
         if repo_type == "remote":
-            repos = Repository.newrepofromclone(remote, path)
+            try:
+                repos = Repository.newrepofromclone(remote, path)
+            except GeoGigException, e:
+                print e
             print "New repo from clone"
         else:
-            repos = Repository(path, init=True)
+            try:
+                repos = Repository(path, init=True)
+            except GeoGigException, e:
+                print e
             print "New repo initialized at : %s" % path
     return repos
 
