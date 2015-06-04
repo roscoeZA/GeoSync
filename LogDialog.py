@@ -17,4 +17,3 @@ class LogDialog(QDialog):
         message = None
         message = message or "\n".join([commit.message for commit in log[:3]])
         self.lstLog.addItem(message)
-        print message

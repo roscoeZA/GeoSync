@@ -28,6 +28,8 @@ from qgis.core import QgsMapLayerRegistry
 from Controller import connect2repo
 from Controller import export_to_geojson
 from Ui_GeoSync import Ui_GeoSync
+from SavedRepos import SavedRepos
+import pydevd
 
 # Initialize Qt resources from file resources.py
 
@@ -71,13 +73,17 @@ class GeoSync:
         self.iface.removePluginMenu('&GeoSync', self.action)
         self.iface.removeToolBarIcon(self.action)
 
-  # run method that performs all the real work
+    # run method that performs all the real work
 
     def run(self):
 
     # create and show the dialog
 
         dlg = GeoSyncDialog()
+        pydevd.settrace('localhost', port=58100, stdoutToServer=True, stderrToServer=True)
+        saved_repos = SavedRepos().get_fields()
+        for index in range(len(saved_repos)):
+            dlg.ui.txtCurrentRepo.addItem(saved_repos[index])
 
     # show the dialog
 

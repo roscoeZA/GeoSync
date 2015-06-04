@@ -1,3 +1,4 @@
+import csv
 from qgis.utils import iface
 from qgis.core import QgsMapLayerRegistry
 from datetime import datetime
@@ -95,3 +96,46 @@ def get_map_layers():#list type is wrong
         # layer_list.append(layer.name())
         layer_list.append(layer)
     return layer_list
+
+class ConfigRepos(object):
+    def get_recent_repos():
+        # dirpath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "saved_repos.csv")
+        saved_repos = os.path.join(os.path.dirname(os.path.realpath(__file__)), "saved_repos.csv")
+
+        if os.path.isfile(saved_repos):
+            with open(saved_repos, 'r+b') as csvfile_in:
+                reader = csv.reader(csvfile_in)
+                repo_dict = dict(row[:2] for row in reader if row)
+
+        else:
+            with open(saved_repos, 'w+b') as csvfile:
+                fieldnames = ['dir', 'remotes']
+                writer = csv.DictWriter(csvfile, delimiter=',', fieldnames=fieldnames)
+                writer.writerow({'dir': '/tmp/test', 'remotes': 'localhost'})
+                reader = csv.reader(csvfile)
+                repo_dict = dict(row[:2] for row in reader if row)
+        print saved_repos
+        print repo_dict
+        return repo_dict
+
+    def set_recent_repos(self):
+        new_repo = self.txtRemote.text()
+        new_dir = self.txtDir.text()
+        # self.repo_dict.append(new_repo)
+        self.repo_dict.update({new_repo: new_dir})
+        #self.repo_dict[new_repo] = [new_dir]
+        self.save()
+        self.reload()
+
+    def save_recent_repos(self):
+        with open(self.fname, 'w+b') as csvfile:
+            writer = csv.writer(csvfile)
+            for key, value in self.repo_dict.items():
+                writer.writerow([key, value])
+
+    def reload_recent_repos(self):
+        self.listRepos.clear()
+        self.repo_dict = {}
+        self.get_fields()
+        for item in self.repo_dict:
+            self.listRepos.addItem(item + " : " + self.repo_dict[item])

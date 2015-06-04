@@ -15,9 +15,16 @@ class RemotesDialog(QDialog):
         self.populate_list()
         self.buttons = QDialogButtonBox(QDialogButtonBox.Ok,
                                         Qt.Horizontal, self)
+        self.txtRemoteName = QLabel(self)
+        self.txtRemoteName.setObjectName(_fromUtf8('txtRemoteName'))
+        self.txtRemoteUrl = QLabel(self)
+        self.txtRemoteUrl.setObjectName(_fromUtf8('txtRemoteUrl'))
+
         self.buttons.accepted.connect(self.hide)
         self.dlg_layout.addWidget(self.lblRemotes)
         self.dlg_layout.addWidget(self.lstRemotes)
+        self.dlg_layout.addWidget(self.txtRemoteName)
+        self.dlg_layout.addWidget(self.txtRemoteUrl)
         self.dlg_layout.addWidget(self.buttons)
 
     def accept(self):

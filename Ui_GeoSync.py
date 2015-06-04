@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_GeoSync.ui'
 #
-# Created: Tue Jun  2 23:22:26 2015
+# Created: Thu Jun  4 22:15:32 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,9 +26,9 @@ except AttributeError:
 class Ui_GeoSync(object):
     def setupUi(self, GeoSync):
         GeoSync.setObjectName(_fromUtf8("GeoSync"))
-        GeoSync.resize(365, 612)
+        GeoSync.resize(384, 612)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../.designer/backup/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         GeoSync.setWindowIcon(icon)
         self.btnOK = QtGui.QDialogButtonBox(GeoSync)
         self.btnOK.setGeometry(QtCore.QRect(-10, 560, 341, 32))
@@ -48,12 +48,9 @@ class Ui_GeoSync(object):
         self.btnLoadfromRepo = QtGui.QPushButton(GeoSync)
         self.btnLoadfromRepo.setGeometry(QtCore.QRect(20, 460, 311, 27))
         self.btnLoadfromRepo.setObjectName(_fromUtf8("btnLoadfromRepo"))
-        self.btnDir = QtGui.QPushButton(GeoSync)
-        self.btnDir.setGeometry(QtCore.QRect(80, 50, 261, 27))
-        self.btnDir.setObjectName(_fromUtf8("btnDir"))
-        self.txtCurrentRepo = QtGui.QLineEdit(GeoSync)
-        self.txtCurrentRepo.setGeometry(QtCore.QRect(100, 20, 241, 27))
-        self.txtCurrentRepo.setObjectName(_fromUtf8("txtCurrentRepo"))
+        self.btnConfigRepos = QtGui.QPushButton(GeoSync)
+        self.btnConfigRepos.setGeometry(QtCore.QRect(150, 40, 181, 27))
+        self.btnConfigRepos.setObjectName(_fromUtf8("btnConfigRepos"))
         self.lblCurrentRepo = QtGui.QLabel(GeoSync)
         self.lblCurrentRepo.setGeometry(QtCore.QRect(20, 20, 81, 17))
         self.lblCurrentRepo.setObjectName(_fromUtf8("lblCurrentRepo"))
@@ -66,8 +63,12 @@ class Ui_GeoSync(object):
         self.btnLog = QtGui.QPushButton(GeoSync)
         self.btnLog.setGeometry(QtCore.QRect(100, 520, 98, 27))
         self.btnLog.setObjectName(_fromUtf8("btnLog"))
+        self.txtCurrentRepo = QtGui.QComboBox(GeoSync)
+        self.txtCurrentRepo.setGeometry(QtCore.QRect(100, 10, 231, 27))
+        self.txtCurrentRepo.setObjectName(_fromUtf8("txtCurrentRepo"))
 
         self.retranslateUi(GeoSync)
+        self.txtCurrentRepo.setCurrentIndex(-1)
         QtCore.QObject.connect(self.btnOK, QtCore.SIGNAL(_fromUtf8("accepted()")), GeoSync.accept)
         QtCore.QObject.connect(self.btnOK, QtCore.SIGNAL(_fromUtf8("rejected()")), GeoSync.reject)
         QtCore.QMetaObject.connectSlotsByName(GeoSync)
@@ -77,7 +78,7 @@ class Ui_GeoSync(object):
         self.btnLayertoRepo.setText(_translate("GeoSync", "Save", None))
         self.btnGetMapLayers.setText(_translate("GeoSync", "Get layers from map", None))
         self.btnLoadfromRepo.setText(_translate("GeoSync", "Load layers from repository", None))
-        self.btnDir.setText(_translate("GeoSync", "Select repository directory", None))
+        self.btnConfigRepos.setText(_translate("GeoSync", "Edit Repositories", None))
         self.lblCurrentRepo.setText(_translate("GeoSync", "Repository:", None))
         self.lblMapLayers.setText(_translate("GeoSync", "Layers to add to repository:", None))
         self.btnRemotes.setText(_translate("GeoSync", "Remotes", None))

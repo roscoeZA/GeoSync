@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>365</width>
+    <width>384</width>
     <height>612</height>
    </rect>
   </property>
@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icon.png</normaloff>icon.png</iconset>
+    <normaloff>../../.designer/backup/icon.png</normaloff>../../.designer/backup/icon.png</iconset>
   </property>
   <widget class="QDialogButtonBox" name="btnOK">
    <property name="geometry">
@@ -85,27 +85,17 @@
     <string>Load layers from repository</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnDir">
+  <widget class="QPushButton" name="btnConfigRepos">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>50</y>
-     <width>261</width>
+     <x>150</x>
+     <y>40</y>
+     <width>181</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Select repository directory</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="txtCurrentRepo">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>20</y>
-     <width>241</width>
-     <height>27</height>
-    </rect>
+    <string>Edit Repositories</string>
    </property>
   </widget>
   <widget class="QLabel" name="lblCurrentRepo">
@@ -158,6 +148,19 @@
    </property>
    <property name="text">
     <string>Log</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="txtCurrentRepo">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>10</y>
+     <width>231</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
    </property>
   </widget>
  </widget>

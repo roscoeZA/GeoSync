@@ -27,6 +27,7 @@ from Controller import *
 from CommitDialog import CommitDialog
 from RemotesDialog import RemotesDialog
 from LogDialog import LogDialog
+from RepoDialog import RepoDialog
 
 class GeoSyncDialog(QtGui.QDialog):
     def __init__(self):
@@ -37,9 +38,12 @@ class GeoSyncDialog(QtGui.QDialog):
         self.ui.btnGetMapLayers.clicked.connect(self.populate_list_widget)
         self.ui.btnLayertoRepo.clicked.connect(self.add_layer_to_repo)
         self.ui.btnLoadfromRepo.clicked.connect(self.populate_map)
-        self.ui.btnDir.clicked.connect(self.set_repo_dir)
+        # self.ui.btnDir.clicked.connect(self.set_repo_dir)
         self.ui.btnRemotes.clicked.connect(self.show_remote_dialog)
-        self.ui.btnLog.clicked.connect(self.show_log_dialg  )
+        self.ui.btnLog.clicked.connect(self.show_log_dialg)
+        self.ui.btnConfigRepos.clicked.connect(self.show_repo_dialog)
+        self.ui.txtCurrentRepo.currentIndexChanged.connect(self.set_repo_dir)
+
 
         # Add progress bar
 
@@ -51,14 +55,14 @@ class GeoSyncDialog(QtGui.QDialog):
             self.ui.listMapLayers.addItem(layer.name())
 
     def set_repo_dir(self):
-        self.current_repo_dir = str(QFileDialog.getExistingDirectory(None, "Select a directory"))
-        self.ui.txtCurrentRepo.setText(self.current_repo_dir)
+        print self.ui.txtCurrentRepo.currentText()
+        self.current_repo_dir = self.ui.txtCurrentRepo.currentText()#str(QFileDialog.getExistingDirectory(None, "Select a directory"))
+        # self.ui.txtCurrentRepo.setText(self.current_repo_dir)
         self.repos = connect2repo(self.current_repo_dir)
 
     def populate_map(self):
         self.repos = connect2repo(self.current_repo_dir)
         export_to_geojson(self.repos, self.current_repo_dir)
-        print self.current_repo_dir
         all_geojson_to_memory(self.current_repo_dir)
         delete_files(self.current_repo_dir)
 
@@ -66,7 +70,6 @@ class GeoSyncDialog(QtGui.QDialog):
     def add_layer_to_repo(self):
         # shift aloat of this functionality into the Controller module.
         self.repos = connect2repo(self.current_repo_dir)
-        print 'Save memory, then import, then add and commit'
         selected_layers = self.ui.listMapLayers.selectedItems()
         crsSrc = QgsCoordinateReferenceSystem(3857)
         for layer in selected_layers:
@@ -79,7 +82,6 @@ class GeoSyncDialog(QtGui.QDialog):
                     fixed_name += name[i]
 
             count = self.ui.listMapLayers.row(layer)
-            print self.legend_layers[count]
         # geogig import has issues with 'crs:OGC:1.3:CRS84' in the geojson file. CRS 3857, seems to work though
             writer = QgsVectorFileWriter.writeAsVectorFormat(self.legend_layers[count],
                                                              os.path.join(self.current_repo_dir,
@@ -89,7 +91,6 @@ class GeoSyncDialog(QtGui.QDialog):
                                                              "GeoJSON")
         import_all_geojosn(self.repos, self.current_repo_dir)
         name, email, message = self.show_commit_dialog()
-        print message
         add_commit(self.repos, name, email, message)
         # should probably add all files to memory here
         delete_files(self.current_repo_dir)
@@ -110,3 +111,11 @@ class GeoSyncDialog(QtGui.QDialog):
         dlg=LogDialog(self.repos)
         dlg.show()
         dlg.exec_()
+
+    def show_repo_dialog(self):
+        dlg = RepoDialog()
+        dlg.show()
+        dlg.exec_()
+
+    def test(self):
+        print 'test'
