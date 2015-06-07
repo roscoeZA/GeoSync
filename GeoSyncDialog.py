@@ -18,7 +18,7 @@ email                : roscoelawrence@gmail.com
 """
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import QRect
-from PySide.QtGui import QFileDialog, QDialog, QApplication
+from PyQt4.QtGui import QFileDialog, QDialog, QApplication
 from qgis.core import QgsVectorFileWriter
 from qgis.core import QgsCoordinateReferenceSystem
 import sys

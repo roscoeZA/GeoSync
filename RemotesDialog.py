@@ -4,6 +4,7 @@ from PyQt4.Qt import *
 class RemotesDialog(QDialog):
     def __init__(self, _repos):
         QWidget.__init__(self)
+        self.setWindowTitle('Manage Remotes')
         self.dlg_layout = QGridLayout(self)
         self.repos = _repos
         self.initUI()

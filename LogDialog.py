@@ -4,6 +4,7 @@ from PyQt4.Qt import *
 class LogDialog(QDialog):
     def __init__(self, _repos):
         QWidget.__init__(self)
+        self.setWindowTitle('Log')
         self.dlg_layout = QGridLayout(self)
         self.repos = _repos
         self.initUI()
